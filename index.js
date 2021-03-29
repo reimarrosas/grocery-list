@@ -19,5 +19,35 @@
     // ii. On submit, get the new input
     // iii. Validate the input
     // iv. Set the selected item to the inputted value
-    
+
+// To be added:
+  // 1. Recovery of grocery items
+
 const groceryList = [];
+let id = 0;
+
+const form = document.querySelector(".header__input-grocery");
+const formInput = document.getElementById("input-grocery");
+
+form.addEventListener("submit", handleGroceryInput);
+
+function handleGroceryInput(evt) {
+  const input = formInput.value;
+  if (validateInput(input)) {
+    groceryList.push({
+      id: id++,
+      item: input,
+      complete: false
+    })
+  }
+  else {
+    alert("Invalid Input!");
+  }
+
+  formInput.value = "";
+  evt.preventDefault();
+}
+
+function validateInput(input) {
+  return /[^\s*]/g.test(input);
+}
