@@ -1,9 +1,9 @@
 "use strict";
 
 // Grocery List App
-// 1. Get User input from the form
-// 2. Parse/Validate the input
-// 3. Store the input to the groceryList with a corresponding id and completeness.
+// !1. Get User input from the form
+// !2. Parse/Validate the input
+// !3. Store the input to the groceryList with a corresponding id and completeness.
 // 4. Create the dom elements representing the grocery item
 // 5. Add the grocery element to the dom
 // 6. Implement the different additional methods, Update, Remove, Complete
@@ -29,6 +29,8 @@ let id = 0;
 const form = document.querySelector(".header__input-grocery");
 const formInput = document.getElementById("input-grocery");
 
+const groceryItems = document.querySelector(".grocery-items");
+
 form.addEventListener("submit", handleGroceryInput);
 
 function handleGroceryInput(evt) {
@@ -43,11 +45,36 @@ function handleGroceryInput(evt) {
   else {
     alert("Invalid Input!");
   }
-
+  
   formInput.value = "";
   evt.preventDefault();
 }
 
 function validateInput(input) {
   return /[^\s*]/g.test(input);
+}
+
+// function checkExistingItem(groceryItem, groceryItems) {
+//   const renderedItems = [...groceryItems.children];
+//   renderedItems.some(item => parseInt(item.dataset.itemId) === groceryItem.id)
+// }
+
+function generateGrocerySection(groceryItem) {
+  const item = document.createElement("div");
+  item.dataset.itemId = groceryItem.id;
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+
+  const groceryName = document.createElement("span");
+  groceryName.textContent = groceryItem.item;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "btn-delete";
+
+  item.appendChild(checkbox);
+  item.appendChild(groceryName);
+  item.appendChild(deleteButton);
+
+  groceryItems.appendChild(item);
 }
