@@ -47,6 +47,8 @@ function handleGroceryInput(evt) {
   }
 
   generateGroceryList();
+  const deleteButton = document.querySelectorAll(".btn-delete");
+  deleteButton.forEach(btn => btn.addEventListener("click", handleItemDelete));
   
   formInput.value = "";
   evt.preventDefault();
@@ -86,4 +88,9 @@ function createGrocerySection(groceryItem) {
   item.appendChild(deleteButton);
 
   groceryItems.appendChild(item);
+}
+
+function handleItemDelete(e) {
+  const itemDiv = e.target.parentElement;
+  groceryItems.removeChild(itemDiv);
 }
