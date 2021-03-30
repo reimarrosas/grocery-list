@@ -79,3 +79,8 @@ span {
   outline: none;
   border: none;
 }
+
+.complete {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

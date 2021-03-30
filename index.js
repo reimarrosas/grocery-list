@@ -7,11 +7,11 @@
 // !4. Create the dom elements representing the grocery item
 // !5. Add the grocery element to the dom
 // 6. Implement the different additional methods, Update, Remove, Complete
-  // a. Remove
+  // !a. Remove
     // i. Check the id of the grocery item
     // ii. Remove item in the grocery list
     // iii. Redraw the branch
-  // b. Complete
+  // !b. Complete
     // i. If checkbox is clicked, set completeness to true
     // ii. If completeness, add completeness css class
   // c. Update
@@ -47,8 +47,11 @@ function handleGroceryInput(evt) {
   }
 
   generateGroceryList();
+
   const deleteButton = document.querySelectorAll(".btn-delete");
-  deleteButton.forEach(btn => btn.addEventListener("click", handleItemDelete));
+  deleteButton.forEach(btn => createEventListener(btn, "click", handleItemDelete));
+  const checkboxes = document.querySelectorAll("[type='checkbox']");
+  checkboxes.forEach(checkbox => createEventListener(checkbox, "change", handleItemComplete));
   
   formInput.value = "";
   evt.preventDefault();
@@ -57,40 +60,55 @@ function handleGroceryInput(evt) {
 function validateInput(input) {
   return /[^\s*]/g.test(input) //&& input.length <= 10;
 }
-
-// function checkExistingItem(groceryItem, groceryItems) {
-//   const renderedItems = [...groceryItems.children];
-//   renderedItems.some(item => parseInt(item.dataset.itemId) === groceryItem.id)
-// }
-
 function generateGroceryList() {
   groceryItems.innerHTML = "";
   groceryList.forEach(item => createGrocerySection(item));
 }
 
 function createGrocerySection(groceryItem) {
-  const item = document.createElement("div");
-  item.className = "grocery-item";
+  const item = createBaseElement("div", "grocery-item", "");
   item.dataset.itemId = groceryItem.id;
 
-  const checkbox = document.createElement("input");
+  const checkbox = createBaseElement("input", "grocery-complete", "");
   checkbox.type = "checkbox";
+  checkbox.dataset.hasEventListener = false;
 
-  const groceryName = document.createElement("span");
-  groceryName.textContent = groceryItem.item;
+  const groceryName = createBaseElement("span", "grocery-name", groceryItem.item);
 
-  const deleteButton = document.createElement("button");
-  deleteButton.className = "btn-delete";
-  deleteButton.textContent = "Delete"
+  const deleteButton = createBaseElement("button", "btn-delete", "Delete");
+  deleteButton.dataset.hasEventListener = false;
 
-  item.appendChild(checkbox);
-  item.appendChild(groceryName);
-  item.appendChild(deleteButton);
+  multiAppendChild(item, checkbox, groceryName, deleteButton);
 
   groceryItems.appendChild(item);
 }
 
+function createBaseElement(elementType, className, textContent) {
+  const element = document.createElement(elementType);
+  element.className = className;
+  element.textContent = textContent;
+
+  return element;
+}
+
+function multiAppendChild(parent, ...children) {
+  children.forEach(child => parent.appendChild(child));
+}
+
+function createEventListener(element, type, eventHandler) {
+  if (element.dataset.hasEventListener === "false") {
+    element.addEventListener(type, eventHandler);
+    element.dataset.hasEventListener = true;
+  }
+}
+
+
 function handleItemDelete(e) {
   const itemDiv = e.target.parentElement;
   groceryItems.removeChild(itemDiv);
+}
+
+function handleItemComplete(e) {
+  const groceryName = e.target.nextElementSibling;
+  groceryName.classList.toggle("complete");
 }
