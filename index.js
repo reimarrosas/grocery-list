@@ -79,6 +79,7 @@ function createGrocerySection(groceryItem) {
 
   const deleteButton = document.createElement("button");
   deleteButton.className = "btn-delete";
+  deleteButton.textContent = "Delete"
 
   item.appendChild(checkbox);
   item.appendChild(groceryName);

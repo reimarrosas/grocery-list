@@ -5,24 +5,41 @@
 *::after {
   font-family: "EB Garamond", serif;
   font-weight: 400;
-}
-
-h1,
-h2,
-h3 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-size: 1.2rem;
 }
 
 h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
   font-style: italic;
+  font-size: 2.5rem;
+  margin-bottom: 0.5em;
+}
+
+.container {
+  max-width: 600px;
+  min-width: 310px;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header__input-grocery {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
+.header__input-grocery > * {
+  flex: 1 1 100%;
 }
 
 .grocery-item {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 300px;
+  padding: 10px;
 }
 
 span {
@@ -32,18 +49,8 @@ span {
 }
 
 .btn-delete {
-  background-image: url(./images/delete.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-
-  display: block;
   margin-left: auto;
   cursor: pointer;
-
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  border: none;
   background-color: #fff;
 }
 
