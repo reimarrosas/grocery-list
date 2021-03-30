@@ -17,3 +17,41 @@ h3 {
 h1 {
   font-style: italic;
 }
+
+.grocery-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 300px;
+}
+
+span {
+  font-size: 1.5rem;
+  display: block;
+  margin-left: 1rem;
+}
+
+.btn-delete {
+  background-image: url(./images/delete.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  display: block;
+  margin-left: auto;
+  cursor: pointer;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #ebebeb;
+}
+
+.btn-delete:focus {
+  outline: none;
+  border: none;
+}

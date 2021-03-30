@@ -4,8 +4,8 @@
 // !1. Get User input from the form
 // !2. Parse/Validate the input
 // !3. Store the input to the groceryList with a corresponding id and completeness.
-// 4. Create the dom elements representing the grocery item
-// 5. Add the grocery element to the dom
+// !4. Create the dom elements representing the grocery item
+// !5. Add the grocery element to the dom
 // 6. Implement the different additional methods, Update, Remove, Complete
   // a. Remove
     // i. Check the id of the grocery item
@@ -45,13 +45,15 @@ function handleGroceryInput(evt) {
   else {
     alert("Invalid Input!");
   }
+
+  generateGroceryList();
   
   formInput.value = "";
   evt.preventDefault();
 }
 
 function validateInput(input) {
-  return /[^\s*]/g.test(input);
+  return /[^\s*]/g.test(input) && input.length <= 10;
 }
 
 // function checkExistingItem(groceryItem, groceryItems) {
@@ -59,8 +61,14 @@ function validateInput(input) {
 //   renderedItems.some(item => parseInt(item.dataset.itemId) === groceryItem.id)
 // }
 
-function generateGrocerySection(groceryItem) {
+function generateGroceryList() {
+  groceryItems.innerHTML = "";
+  groceryList.forEach(item => createGrocerySection(item));
+}
+
+function createGrocerySection(groceryItem) {
   const item = document.createElement("div");
+  item.className = "grocery-item";
   item.dataset.itemId = groceryItem.id;
 
   const checkbox = document.createElement("input");
