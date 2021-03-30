@@ -22,6 +22,7 @@
 
 // To be added:
   // 1. Recovery of grocery items
+  // 2. Save to localstorage
 
 const groceryList = [];
 let id = 0;
