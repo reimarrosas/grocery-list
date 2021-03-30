@@ -19,9 +19,11 @@ h1 {
 .container {
   max-width: 600px;
   min-width: 310px;
+  min-height: 600px;
   width: 60%;
-  margin: 0 auto;
+  margin: 2em auto;
   text-align: center;
+  background-color: #f0dba6;
 }
 
 .header__input-grocery {
@@ -29,17 +31,31 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   max-width: 400px;
+  padding: 0 2rem;
 }
 
 .header__input-grocery > * {
   flex: 1 1 100%;
+  width: 100%;
+}
+
+.grocery-items {
+  padding: 1rem;
 }
 
 .grocery-item {
   display: flex;
+  padding: 0 1rem;
   align-items: center;
   justify-content: flex-start;
-  padding: 10px;
+}
+
+.grocery-item {
+  border: 1px solid #444;
+}
+
+.grocery-item + .grocery-item {
+  border-top: none;
 }
 
 span {

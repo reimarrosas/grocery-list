@@ -53,7 +53,7 @@ function handleGroceryInput(evt) {
 }
 
 function validateInput(input) {
-  return /[^\s*]/g.test(input) && input.length <= 10;
+  return /[^\s*]/g.test(input) //&& input.length <= 10;
 }
 
 // function checkExistingItem(groceryItem, groceryItems) {
