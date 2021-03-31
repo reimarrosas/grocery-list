@@ -1,39 +1,21 @@
 "use strict";
 
-// Grocery List App
-// !1. Get User input from the form
-// !2. Parse/Validate the input
-// !3. Store the input to the groceryList with a corresponding id and completeness.
-// !4. Create the dom elements representing the grocery item
-// !5. Add the grocery element to the dom
-// 6. Implement the different additional methods, Update, Remove, Complete
-  // !a. Remove
-    // i. Check the id of the grocery item
-    // ii. Remove item in the grocery list
-    // iii. Redraw the branch
-  // !b. Complete
-    // i. If checkbox is clicked, set completeness to true
-    // ii. If completeness, add completeness css class
-  // c. Update
-    // i. On item click, bring down menu for inputting new item
-    // ii. On submit, get the new input
-    // iii. Validate the input
-    // iv. Set the selected item to the inputted value
-
-// To be added:
-  // 1. Recovery of grocery items
-  // 2. Save to localstorage
-
-// Globals
+/*
+ * Globals
+ */
 const groceryList = [];
 let id = 0;
 
-// DOM Elements needed for the operations
+/*
+ * DOM Elements needed for the operations
+ */
 const form = document.querySelector(".header__input-grocery");
 const formInput = document.getElementById("input-grocery");
 const groceryItems = document.querySelector(".grocery-items");
 
-// Form Event Handler
+/*
+ * Form Event Handler
+ */
 form.addEventListener("submit", (e) => {
   const input = formInput.value;
   if (validateInput(input)) {
@@ -68,7 +50,9 @@ form.addEventListener("submit", (e) => {
   evt.preventDefault();
 });
 
-// Form Event Handler Helpers
+/*
+ * Form Event Handler Helpers
+ */
 function validateInput(input) {
   return /[^\s*]/g.test(input); //&& input.length <= 10;
 }
@@ -85,7 +69,9 @@ function createEventListener(element, type, eventHandler) {
   }
 }
 
-// generateGroceryList Helpers
+/*
+ * generateGroceryList Helpers
+ */
 function createGrocerySection(groceryItem) {
   const item = createBaseElement("div", "grocery-item", "");
   item.dataset.itemId = groceryItem.id;
@@ -104,7 +90,9 @@ function createGrocerySection(groceryItem) {
   groceryItems.appendChild(item);
 }
 
-// createGrocerySection Helpers
+/*
+ * createGrocerySection Helpers
+ */
 function createBaseElement(elementType, className, textContent) {
   const element = document.createElement(elementType);
   element.className = className;
