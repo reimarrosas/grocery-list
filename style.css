@@ -84,3 +84,42 @@ span {
   text-decoration: line-through;
   opacity: 0.6;
 }
+
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 3em;
+  display: none;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 400px;
+}
+
+.button-div {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+}
+
+.modal-title {
+  text-align: center;
+  color: #ebebeb;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.render-modal {
+  display: flex;
+}

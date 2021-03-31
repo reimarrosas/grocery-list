@@ -14,12 +14,33 @@
       <header class="header">
         <h1 class="header__title">Grocery List</h1>
         <form class="header__input-grocery">
-          <label for="input-grocery"></label>
-          <input type="text" name="input-grocery" id="input-grocery" />
+          <input
+            type="text"
+            name="input-grocery"
+            id="input-grocery"
+            aria-label="Grocery input."
+          />
           <button type="submit">New Grocery Item</button>
         </form>
       </header>
       <main class="grocery-items"></main>
+    </div>
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="button-div">
+          <button class="btn-close" aria-label="Close.">&times;</button>
+        </div>
+        <h2 class="modal-title">Update Grocery Item</h2>
+        <form class="modal-form">
+          <input
+            type="text"
+            name="update-grocery"
+            id="update-grocery"
+            aria-label="Grocery update."
+          />
+          <button type="submit">Update Grocery Item</button>
+        </form>
+      </div>
     </div>
     <script src="index.js"></script>
   </body>
