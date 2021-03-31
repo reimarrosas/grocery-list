@@ -18,33 +18,15 @@ const groceryItems = document.querySelector(".grocery-items");
  */
 form.addEventListener("submit", (e) => {
   const input = formInput.value;
-  if (validateInput(input)) {
-    groceryList.push({
-      id: id++,
-      item: input,
-      complete: false
-    })
-  }
-  else {
-    alert("Invalid Input!");
-  }
+  
+  validateInput(input);
 
   generateGroceryList();
 
   const deleteButton = document.querySelectorAll(".btn-delete");
-  deleteButton.forEach(btn => createEventListener(btn, "click", (e) => {
-    const itemDiv = e.target.parentElement;
-    const itemIndex = groceryList.findIndex(item => item.id === Number(itemDiv.dataset.itemId));
-    groceryList.splice(itemIndex, 1);
-    groceryItems.removeChild(itemDiv);
-    e.stopPropagation();
-  }));
+  deleteButton.forEach(btn => createEventListener(btn, "click", handleDeleteButton));
   const checkboxes = document.querySelectorAll("[type='checkbox']");
-  checkboxes.forEach(checkbox => createEventListener(checkbox, "change", (e) => {
-    const groceryName = e.target.nextElementSibling;
-    groceryName.classList.toggle("complete");
-    e.stopPropagation();
-  }));
+  checkboxes.forEach(checkbox => createEventListener(checkbox, "change", handleCompletenessCheckbox));
   
   formInput.value = "";
   evt.preventDefault();
@@ -54,6 +36,19 @@ form.addEventListener("submit", (e) => {
  * Form Event Handler Helpers
  */
 function validateInput(input) {
+  if (isInputValid(input)) {
+    groceryList.push({
+      id: id++,
+      item: input,
+      complete: false
+    })
+  }
+  else {
+    alert("Invalid Input!");
+  }
+}
+
+function isInputValid(input) {
   return /[^\s*]/g.test(input); //&& input.length <= 10;
 }
 
@@ -67,6 +62,28 @@ function createEventListener(element, type, eventHandler) {
     element.addEventListener(type, eventHandler);
     element.dataset.hasEventListener = true;
   }
+}
+
+/*
+ * eventHandlers for Grocery operations
+ */
+
+function handleDeleteButton(e) {
+  const itemDiv = e.target.parentElement;
+  const itemIndex = groceryList.findIndex(item => item.id === Number(itemDiv.dataset.itemId));
+  groceryList.splice(itemIndex, 1);
+  groceryItems.removeChild(itemDiv);
+  e.stopPropagation();
+}
+
+function handleCompletenessCheckbox(e) {
+  const groceryName = e.target.nextElementSibling;
+  groceryName.classList.toggle("complete");
+  e.stopPropagation();
+}
+
+function handleGroceryItemUpdate(e) {
+  console.log("Update!");
 }
 
 /*
