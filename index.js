@@ -11,7 +11,7 @@ let id = 0;
  */
 const form = document.querySelector(".header__input-grocery");
 const formInput = document.getElementById("input-grocery");
-const groceryItems = document.querySelector(".grocery-items");
+const groceryItemsContainer = document.querySelector(".grocery-items");
 
 /*
  * Form Event Handler
@@ -27,9 +27,11 @@ form.addEventListener("submit", (e) => {
   deleteButton.forEach(btn => createEventListener(btn, "click", handleDeleteButton));
   const checkboxes = document.querySelectorAll("[type='checkbox']");
   checkboxes.forEach(checkbox => createEventListener(checkbox, "change", handleCompletenessCheckbox));
+  const groceryItemsDiv = document.querySelectorAll(".grocery-item");
+  groceryItemsDiv.forEach(itemDiv => createEventListener(itemDiv, "click", handleGroceryItemUpdate));
   
   formInput.value = "";
-  evt.preventDefault();
+  e.preventDefault();
 });
 
 /*
@@ -53,7 +55,7 @@ function isInputValid(input) {
 }
 
 function generateGroceryList() {
-  groceryItems.innerHTML = "";
+  groceryItemsContainer.innerHTML = "";
   groceryList.forEach(item => createGrocerySection(item));
 }
 
@@ -72,7 +74,7 @@ function handleDeleteButton(e) {
   const itemDiv = e.target.parentElement;
   const itemIndex = groceryList.findIndex(item => item.id === Number(itemDiv.dataset.itemId));
   groceryList.splice(itemIndex, 1);
-  groceryItems.removeChild(itemDiv);
+  groceryItemsContainer.removeChild(itemDiv);
   e.stopPropagation();
 }
 
@@ -83,7 +85,8 @@ function handleCompletenessCheckbox(e) {
 }
 
 function handleGroceryItemUpdate(e) {
-  console.log("Update!");
+  const itemDiv = e.target;
+  console.log(itemDiv);
 }
 
 /*
@@ -92,6 +95,7 @@ function handleGroceryItemUpdate(e) {
 function createGrocerySection(groceryItem) {
   const item = createBaseElement("div", "grocery-item", "");
   item.dataset.itemId = groceryItem.id;
+  item.dataset.hasEventListener = false;
 
   const checkbox = createBaseElement("input", "grocery-complete", "");
   checkbox.type = "checkbox";
@@ -104,7 +108,7 @@ function createGrocerySection(groceryItem) {
 
   multiAppendChild(item, checkbox, groceryName, deleteButton);
 
-  groceryItems.appendChild(item);
+  groceryItemsContainer.appendChild(item);
 }
 
 /*
