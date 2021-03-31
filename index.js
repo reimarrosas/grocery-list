@@ -32,9 +32,7 @@ const formInput = document.getElementById("input-grocery");
 
 const groceryItems = document.querySelector(".grocery-items");
 
-form.addEventListener("submit", handleGroceryInput);
-
-function handleGroceryInput(evt) {
+form.addEventListener("submit", (e) => {
   const input = formInput.value;
   if (validateInput(input)) {
     groceryList.push({
@@ -50,16 +48,26 @@ function handleGroceryInput(evt) {
   generateGroceryList();
 
   const deleteButton = document.querySelectorAll(".btn-delete");
-  deleteButton.forEach(btn => createEventListener(btn, "click", handleItemDelete));
+  deleteButton.forEach(btn => createEventListener(btn, "click", (e) => {
+    const itemDiv = e.target.parentElement;
+    const itemIndex = groceryList.findIndex(item => item.id === Number(itemDiv.dataset.itemId));
+    groceryList.splice(itemIndex, 1);
+    groceryItems.removeChild(itemDiv);
+    e.stopPropagation();
+  }));
   const checkboxes = document.querySelectorAll("[type='checkbox']");
-  checkboxes.forEach(checkbox => createEventListener(checkbox, "change", handleItemComplete));
+  checkboxes.forEach(checkbox => createEventListener(checkbox, "change", (e) => {
+    const groceryName = e.target.nextElementSibling;
+    groceryName.classList.toggle("complete");
+    e.stopPropagation();
+  }));
   
   formInput.value = "";
   evt.preventDefault();
-}
+});
 
 function validateInput(input) {
-  return /[^\s*]/g.test(input) //&& input.length <= 10;
+  return /[^\s*]/g.test(input); //&& input.length <= 10;
 }
 function generateGroceryList() {
   groceryItems.innerHTML = "";
@@ -101,15 +109,4 @@ function createEventListener(element, type, eventHandler) {
     element.addEventListener(type, eventHandler);
     element.dataset.hasEventListener = true;
   }
-}
-
-
-function handleItemDelete(e) {
-  const itemDiv = e.target.parentElement;
-  groceryItems.removeChild(itemDiv);
-}
-
-function handleItemComplete(e) {
-  const groceryName = e.target.nextElementSibling;
-  groceryName.classList.toggle("complete");
 }
