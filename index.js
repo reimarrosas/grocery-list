@@ -24,14 +24,16 @@
   // 1. Recovery of grocery items
   // 2. Save to localstorage
 
+// Globals
 const groceryList = [];
 let id = 0;
 
+// DOM Elements needed for the operations
 const form = document.querySelector(".header__input-grocery");
 const formInput = document.getElementById("input-grocery");
-
 const groceryItems = document.querySelector(".grocery-items");
 
+// Form Event Handler
 form.addEventListener("submit", (e) => {
   const input = formInput.value;
   if (validateInput(input)) {
@@ -66,14 +68,24 @@ form.addEventListener("submit", (e) => {
   evt.preventDefault();
 });
 
+// Form Event Handler Helpers
 function validateInput(input) {
   return /[^\s*]/g.test(input); //&& input.length <= 10;
 }
+
 function generateGroceryList() {
   groceryItems.innerHTML = "";
   groceryList.forEach(item => createGrocerySection(item));
 }
 
+function createEventListener(element, type, eventHandler) {
+  if (element.dataset.hasEventListener === "false") {
+    element.addEventListener(type, eventHandler);
+    element.dataset.hasEventListener = true;
+  }
+}
+
+// generateGroceryList Helpers
 function createGrocerySection(groceryItem) {
   const item = createBaseElement("div", "grocery-item", "");
   item.dataset.itemId = groceryItem.id;
@@ -92,6 +104,7 @@ function createGrocerySection(groceryItem) {
   groceryItems.appendChild(item);
 }
 
+// createGrocerySection Helpers
 function createBaseElement(elementType, className, textContent) {
   const element = document.createElement(elementType);
   element.className = className;
@@ -102,11 +115,4 @@ function createBaseElement(elementType, className, textContent) {
 
 function multiAppendChild(parent, ...children) {
   children.forEach(child => parent.appendChild(child));
-}
-
-function createEventListener(element, type, eventHandler) {
-  if (element.dataset.hasEventListener === "false") {
-    element.addEventListener(type, eventHandler);
-    element.dataset.hasEventListener = true;
-  }
 }
